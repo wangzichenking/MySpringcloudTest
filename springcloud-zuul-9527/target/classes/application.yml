@@ -1,0 +1,26 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: springcloud-zuul-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: zuul-9527
+    prefer-ip-address: true
+info:
+  app.name: WANGZICHEN
+  company.name: 2020.5.1
+
+zuul:
+  routes:
+    #通过mydept来代替springcloud-provider-dept（http://localhost:9527/mydept/dept/list）
+    mydept.serviceId: springcloud-provider-dept
+    mydept.path: /mydept/**
+  #ignored-services: springcloud-provider-dept   #不能使用这个路径访问
+  ignored-services: "*"   #隐藏全部微服务项目
+  prefix: /wzc        #设置公共的前缀
